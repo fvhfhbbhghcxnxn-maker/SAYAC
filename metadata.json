@@ -1,0 +1,6 @@
+{
+  "name": "Ad Günü Hədiyyəsi",
+  "description": "6 İyul üçün özəl və interaktiv ad günü təbriki tətbiqi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
