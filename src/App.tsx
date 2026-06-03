@@ -176,6 +176,9 @@ export default function App() {
       await signInWithPopup(auth, provider);
     } catch (error: any) {
       console.error("Login Error:", error);
+      if (error.code === 'auth/unauthorized-domain') {
+        alert("Vercel domaini Firebase-də 'Authorized Domains' siyahısına əlavə edilməlidir. Firebase Console -> Auth -> Settings -> Authorized Domains bölməsinə keçin.");
+      }
       // Fallback for redirect if popup is blocked
       if (error.code === 'auth/popup-blocked') {
         await signInWithRedirect(auth, provider);
