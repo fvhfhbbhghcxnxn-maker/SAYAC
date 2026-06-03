@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /notes/{noteId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      // Allow only the super admin and added admins to delete notes
+      allow delete: if request.auth != null && (
+        request.auth.token.email == "fvhfhbbhghcxnxn@gmail.com" ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.token.email))
+      );
+      allow update: if false;
+    }
+
+    match /admins/{email} {
+      // Only the super admin can manage the admin list
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.email == "fvhfhbbhghcxnxn@gmail.com";
+    }
+  }
+}

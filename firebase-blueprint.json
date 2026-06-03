@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "note": {
+      "title": "Birthday Note",
+      "description": "A short birthday message shared by a user.",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The content of the birthday note"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the note was created"
+        },
+        "authorId": {
+          "type": "string",
+          "description": "The UID of the user who wrote the note"
+        },
+        "authorName": {
+          "type": "string",
+          "description": "The display name of the user who wrote the note"
+        }
+      },
+      "required": [
+        "text",
+        "createdAt",
+        "authorId"
+      ]
+    }
+  },
+  "firestore": {
+    "/notes/{noteId}": {
+      "schema": "note",
+      "description": "Collection of birthday notes shared by users",
+      "indexes": [
+        {
+          "fields": [
+            {
+              "fieldPath": "createdAt",
+              "order": "DESCENDING"
+            }
+          ]
+        }
+      ]
+    },
+    "/admins/{email}": {
+      "schema": "admin",
+      "description": "Collection of email addresses that have administrative privileges"
+    }
+  }
+}

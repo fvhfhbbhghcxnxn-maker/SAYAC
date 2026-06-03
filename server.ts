@@ -29,7 +29,7 @@ async function startServer() {
       const prompt = `Azərbaycan dilində 6 iyul ad günü üçün son dərəcə poetik, dərin mənalı, ruhu oxşayan və səmimi bir təbrik mesajı yaz. Mesaj qısa olsun amma sözlər elə seçilsin ki, oxuyanın qəlbinə toxunsun. Mesajın ən sonuna mütləq böyük hərflərlə "AD GÜNÜN MÜBARƏK BALACA çocuk" cümləsini əlavə et. Heç bir giriş sözü (məs: 'buyurun') yazma, birbaşa təbriklə başla.`;
       
       const interaction = await ai.interactions.create({
-        model: "gemini-3.5-flash",
+        model: "gemini-2.0-flash",
         input: prompt,
       });
 
@@ -43,7 +43,8 @@ async function startServer() {
         }
       }
       
-      res.json({ message: message.trim() || fallbacks[Math.floor(Math.random() * fallbacks.length)] });
+      const finalMessage = message.trim();
+      res.json({ message: finalMessage || fallbacks[Math.floor(Math.random() * fallbacks.length)] });
     } catch (error: any) {
       // Quietly handle rate limits by serving a fallback
       if (error?.status !== 429) {
